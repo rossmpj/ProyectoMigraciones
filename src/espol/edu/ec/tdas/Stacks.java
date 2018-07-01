@@ -33,8 +33,40 @@ public class Stacks {
     Deque<ProcesamMig> OI_S = new LinkedList<>();
     Deque<ProcesamMig> pila_E = new LinkedList<>();
     Deque<ProcesamMig> pila_S = new LinkedList<>();
+
+    public Deque<ProcesamMig> getCosta_E() {
+        return ordenarDeque(costa_E);
+    }
+
+    public Deque<ProcesamMig> getCosta_S() {
+        return ordenarDeque(costa_S);
+    }
+
+    public Deque<ProcesamMig> getSierra_E() {
+        return ordenarDeque(sierra_E);
+    }
+
+    public Deque<ProcesamMig> getSierra_S() {
+        return ordenarDeque(sierra_S);
+    }
+
+    public Deque<ProcesamMig> getOriente_E() {
+        return ordenarDeque(oriente_E);
+    }
+
+    public Deque<ProcesamMig> getOriente_S() {
+        return ordenarDeque(oriente_S);
+    }
+     
+    public Deque<ProcesamMig> getInsular_E() {
+        return ordenarDeque(insular_E);
+    }
+
+    public Deque<ProcesamMig> getInsular_S() {
+        return ordenarDeque(insular_S);
+    }
         
-    Provincia listProvincia = new Provincia();
+    ListaProvincias listProvincia = new ListaProvincias();
     Data d = new Data();
     HashMap<String, ProcesamMig> mapa_Entradas  = d.CargarEntradas(path+"/migraciones.csv");
     HashMap<String, ProcesamMig> mapa_Salidas  = d.CargarSalidas(path+"/migraciones.csv");

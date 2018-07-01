@@ -1,0 +1,6 @@
+0929283798,aguirre larrosa cinthya pamela,ecuatoriana,femenino,2017-12-04,administradora,no
+007998918,aguirre pincay francis vildo,ecuatoriano,masculino,2017-12-04,taxista,no
+0079989181,yamazaki kento,japones,masculino,2017-12-04,empresario,no
+0079989187,lee ju suk,coreano,masculino,2017-12-04,empresario,no
+0079989185,gonzalez solorzano carla paz,venezuela,femenino,2017-12-04,ama de casa,no
+0079989184,gomez rodriguez keyla alejandra,colombiana,femenino,2017-12-04,estudiante,si

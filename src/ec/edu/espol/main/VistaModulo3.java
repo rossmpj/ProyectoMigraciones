@@ -6,8 +6,10 @@
 package ec.edu.espol.main;
 
 import ec.edu.espol.vista.Modulo3;
+import ec.edu.espol.vista.Modulo3pilasxprov;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -16,10 +18,12 @@ import javafx.stage.Stage;
  * @author ROSA
  */
 public class VistaModulo3 extends Application {
+        public static Scene scene;
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Modulo3 root = new Modulo3();
-        Scene scene = new Scene(root.getRoot1(), 1400, 700);
+        scene = new Scene(new Group(), 1400, 700);
+        Modulo3pilasxprov root = new Modulo3pilasxprov();
+        scene.setRoot(root.getRoot1());
         primaryStage.setTitle("Módulo 3");
         primaryStage.setScene(scene);
         primaryStage.show();

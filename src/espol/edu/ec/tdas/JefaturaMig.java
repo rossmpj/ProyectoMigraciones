@@ -20,6 +20,9 @@ public class JefaturaMig {
         this.provincia = provincia;
         this.canton = canton;
     }
+    public JefaturaMig(String provincia) {
+        this.provincia = provincia;
+    }
 
     public String getProvincia() {
         return provincia;

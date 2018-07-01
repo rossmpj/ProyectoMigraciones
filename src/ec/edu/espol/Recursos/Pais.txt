@@ -1,0 +1,5 @@
+656024769,ecuador,america
+652288925,colombia,america
+2015358410,venezuela,america
+940539190,corea,asia
+1489471251,japon,asia

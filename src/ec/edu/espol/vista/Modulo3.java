@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.vista;
 
+import ec.edu.espol.main.VistaModulo3;
 import espol.edu.ec.tdas.ProcesamMig;
 import espol.edu.ec.tdas.Stacks;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import javafx.scene.text.Font;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,8 +37,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class Modulo3 {
     private final BorderPane root1;
-    public static TableView tv;
-    public static ObservableList<ProcesamMig> data;
     
     public BorderPane getRoot1() {
         return root1;
@@ -50,6 +50,7 @@ public class Modulo3 {
         crearSeccionTitulo();
         crearSeccionEntradas();
         crearSeccionSalidas();
+        seccionBotones();
     }
     
     private void crearSeccionTitulo(){
@@ -64,26 +65,33 @@ public class Modulo3 {
     } 
     
     private void crearSeccionEntradas() throws IOException{
-        Stacks controlador = new Stacks();      
-        showPilas(controlador.getPila_E());
+        Stacks entradasProcesadas = new Stacks();      
         VBox vB = new VBox();
-        crearTabla("Entradas");   
-        vB.getChildren().add(tv);
+        TableView tablaE = crearTabla("Entradas", showPilas(entradasProcesadas.getPila_E()));   
+        vB.getChildren().add(tablaE);
         root1.setLeft(vB);              
-        vB.setPadding(new Insets(20,30,50,100)); //bordes arriba, derecha, abajo, izquierda
+        vB.setPadding(new Insets(20,50,50,150)); //bordes arriba, derecha, abajo, izquierda
     }
        
     private void crearSeccionSalidas() throws IOException{
-        Stacks controlador = new Stacks();      
-        showPilas(controlador.getPila_S());
+        Stacks salidasProcesadas = new Stacks();  
         VBox vB = new VBox();
-        crearTabla("Salidas");    
-        vB.getChildren().add(tv);
+        TableView tablaS = crearTabla("Salidas",showPilas(salidasProcesadas.getPila_S()));    
+        vB.getChildren().add(tablaS);
         root1.setRight(vB);    
-        vB.setPadding(new Insets(20,100,50,30));
+        vB.setPadding(new Insets(20,150,50,50));
     }   
     
-    public void showPilas(Deque<ProcesamMig> p){    
+    private void seccionBotones(){
+        Button bt = crearBotonRegresar();
+        VBox v = new VBox();
+        v.getChildren().add(bt);
+        v.setAlignment(Pos.CENTER);
+        v.setPadding(new Insets(0,0,50,0)); //bordes arriba, derecha, abajo, izquierda
+        root1.setBottom(v);
+    }
+    
+    public static ObservableList<ProcesamMig> showPilas(Deque<ProcesamMig> p){    
         Deque<ProcesamMig> d = new LinkedList<>();
         Deque<ProcesamMig> d1 = new LinkedList<>();
         while(!p.isEmpty()){
@@ -97,11 +105,12 @@ public class Modulo3 {
         while (!d.isEmpty()){
             q.add(d.pop());
         }     
-        data = FXCollections.observableArrayList(q); 
-    }
-    
-    private void crearTabla(String tipo){
-        tv = new TableView();
+        ObservableList<ProcesamMig> dat = FXCollections.observableArrayList(q); 
+        return dat;
+    }   
+         
+    private TableView crearTabla(String tipo, ObservableList<ProcesamMig> dat){
+        TableView t = new TableView();
         TableColumn c = new TableColumn(tipo);
         TableColumn c1_prov = new TableColumn("Provincia");
         TableColumn c2_cant = new TableColumn("Cantidad");
@@ -110,18 +119,34 @@ public class Modulo3 {
         c1_prov.setCellValueFactory(new PropertyValueFactory<>("jefat"));
         c2_cant.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         c.getColumns().addAll(c1_prov, c2_cant);
-        tv.setPrefSize(500,9000);
-        tv.setEditable(false);
+        t.setPrefSize(500, 9000);
+        t.setEditable(false);
         propertiesTableView(c1_prov);
         propertiesTableView(c);
         propertiesTableView(c2_cant);
-        tv.getColumns().addAll(c);
-        tv.setItems(data);
+        t.getColumns().addAll(c);
+        t.setItems(dat);
+        return t;
     }
-    
-    private void propertiesTableView(TableColumn c){
+        
+    public static void propertiesTableView(TableColumn c){
         c.setSortable(false);
         c.setResizable(false);
         c.setEditable(false);
+    }
+    
+      private Button crearBotonRegresar(){
+        Button bt = new Button("Volver");
+        bt.setPrefSize(65, 35);
+        bt.setOnAction(e -> {
+            Modulo3pilasxprov pr;
+            try {
+                pr = new Modulo3pilasxprov();
+                VistaModulo3.scene.setRoot(pr.getRoot1());
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+        return bt;
     }
 }
